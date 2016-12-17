@@ -1,12 +1,12 @@
 """This module contains functions to read/write features to a text file"""
 
 import re
+import os
 from collections import defaultdict
 import clustermanager as cm
-import featurex as fx
+from featurex import feature_extraction
 import pallette_manager as pm
 from configmanager import Configs
-import os
 
 
 directory_path = Configs().ProcessingFolderPath
@@ -26,26 +26,26 @@ def write_features(filename=features_fname):
 
     for fname, palette_pixels in palette_dict.items():
         feature_file.write(fname + '_kmeans:')
-        kmeans_palette_features = fx.feature_extraction(palette_pixels,
-                                                        cm.findimagekmeans(fname))
+        kmeans_palette_features = feature_extraction(palette_pixels,
+                                                     cm.findimagekmeans(fname))
         feature_file.write('{}'.format(kmeans_palette_features))
 
-        feature_file.write('\n' + fname + '_minibatchmeans:')
-        minibatchmeans_palette_features = fx.feature_extraction(palette_pixels,
-                                                                cm.findimageminibatchmeans(fname))
+        feature_file.write('\n' + fname + '_minibmeans:')
+        minibmeans_palette_features = feature_extraction(palette_pixels,
+                                                         cm.findimageminibatchmeans(fname))
 
-        feature_file.write('{}'.format(minibatchmeans_palette_features))
+        feature_file.write('{}'.format(minibmeans_palette_features))
 
         feature_file.write('\n' + fname + '_randmeans:')
-        randmeans_palette_features = fx.feature_extraction(palette_pixels,
-                                                           cm.findimagerandommeans(fname))
+        randmeans_palette_features = feature_extraction(palette_pixels,
+                                                        cm.findimagerandommeans(fname))
         feature_file.write('{}\n'.format(randmeans_palette_features))
 
         feature_file.write(fname + '_designer:')
 
-        designer_palette_features = fx.feature_extraction(palette_pixels,
-                                                          palette_pixels,
-                                                          equal=True)
+        designer_palette_features = feature_extraction(palette_pixels,
+                                                       palette_pixels,
+                                                       equal=True)
         feature_file.write('{}\n'.format(designer_palette_features))
 
 

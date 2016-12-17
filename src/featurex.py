@@ -1,3 +1,6 @@
+"""
+Module contains all feature extraction functions
+"""
 import featureexhelpers as fxh
 import skimage
 import skimage.color
@@ -6,6 +9,7 @@ import numpy as np
 
 def extract_RGBmean(sioimage):
     """
+    Calculates the mean for each R, G, and B values
 
     :param sioimage: RGBImage
     :return: mean of numbers

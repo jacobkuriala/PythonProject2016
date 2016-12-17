@@ -1,3 +1,6 @@
+"""
+Module contains Class Configs which has the main data path used for data
+"""
 class Configs(object):
     """
     Maintains the high level configuration like:
