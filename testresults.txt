@@ -1,1 +1,1 @@
-nosetests --with-coverage --cover-package clustermanager,configmanager,featureexhelpers,featureio,featurex,pallette_manager,scorer
+nosetests --with-coverage --cover-package clustermanager,configmanager,featureexhelpers,featureio,featurex,pallette_manager,scorer,lassoregression
