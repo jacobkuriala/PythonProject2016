@@ -20,9 +20,13 @@ If you have all the dependencies then you could simply run lassoregression.py
 
 Note that the intermediate files are not recreated if they exist in the 'ProcessingFolderPath'.
 If you wish to refresh the data based on new files in palettes and slices data delete all
-the intermediate files in the 'ProcessingFolderPath'.
+the intermediate files in the 'ProcessingFolderPath'(except file_palette_RGBmapping_rogues.txt).
 
-We currently test generate files for only 4 test files in slices and palettes folder
-To test original data you can copy all files from Data/sample_data into outer folder
-Data/
-This was the original data that we used for report so you can test with this to see original results.
+The 'ProcessingFolderPath' currently contains the files generated for the report so if you run
+regression you will get the data for all the values. However, the silces and palettes folders 
+only contain 4 sample images so if the tests are run then the intermediate files get overwritten with
+intermediate files generated for those 4 files.
+
+The original intermediate files generated during the project are located at Data/sample_data. You can 
+copy the files from this folder to the parent Data folder ''ProcessingFolderPath'' to get back the 
+original values in case you lose them during testing.
