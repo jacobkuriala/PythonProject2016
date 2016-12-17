@@ -15,4 +15,4 @@ class Configs(object):
     # Intermediate files get added to this folder
     # ProcessingFolderPath = r'/media/jacob/Elements/MyStuff/Chama/DESIGNSEEDS/DESIGNSEEDS/'
     # ProcessingFolderPath = r'/home/er/Downloads/ProjectPyTest/DESIGNSEEDS/DESIGNSEEDS/'
-    ProcessingFolderPath = r'Data/'
+    ProcessingFolderPath = r'Data/original_data/'

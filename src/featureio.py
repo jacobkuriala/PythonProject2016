@@ -3,7 +3,8 @@
 import re
 import os
 from collections import defaultdict
-import clustermanager as cm
+from clustermanager import findimagerandommeans, findimagekmeans, \
+    findimageminibatchmeans
 from featurex import feature_extraction
 import pallette_manager as pm
 from configmanager import Configs
@@ -27,18 +28,20 @@ def write_features(filename=features_fname):
     for fname, palette_pixels in palette_dict.items():
         feature_file.write(fname + '_kmeans:')
         kmeans_palette_features = feature_extraction(palette_pixels,
-                                                     cm.findimagekmeans(fname))
+                                                     findimagekmeans(fname))
         feature_file.write('{}'.format(kmeans_palette_features))
 
         feature_file.write('\n' + fname + '_minibatchmeans:')
-        minibmeans_palette_features = feature_extraction(palette_pixels,
-                                                         cm.findimageminibatchmeans(fname))
+        minibmeans_features = feature_extraction(palette_pixels,
+                                                 findimageminibatchmeans(
+                                                     fname))
 
-        feature_file.write('{}'.format(minibmeans_palette_features))
+        feature_file.write('{}'.format(minibmeans_features))
 
         feature_file.write('\n' + fname + '_randmeans:')
         randmeans_palette_features = feature_extraction(palette_pixels,
-                                                        cm.findimagerandommeans(fname))
+                                                        findimagerandommeans(
+                                                            fname))
         feature_file.write('{}\n'.format(randmeans_palette_features))
 
         feature_file.write(fname + '_designer:')
