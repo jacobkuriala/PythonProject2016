@@ -8,7 +8,6 @@ import scorer
 import pallette_manager as pm
 import featureio as fio
 import clustermanager as cm
-import matplotlib.image as mpimag
 import matplotlib.pyplot as plt
 import skimage as ski
 
@@ -35,17 +34,19 @@ def train_model():
 
     return lasso_model, X_test, y_test
 
+
 def test_model():
     model, x_test, y_test = train_model()
     predicted_scores = model.predict(x_test)
     fig, ax = plt.subplots()
     ax.scatter(y_test, predicted_scores)
-    ax.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], 'k--', lw=4)
+    ax.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], 'k--',
+            lw=4)
     ax.tick_params(axis='x', labelsize=10)
     ax.tick_params(axis='y', labelsize=10)
     ax.set_xlabel('Actual', fontsize=18)
-    ax.set_ylabel('Predicted',fontsize=18)
-    ax.set_title('All features',fontsize=25)
+    ax.set_ylabel('Predicted', fontsize=18)
+    ax.set_title('All features', fontsize=25)
     plt.show()
     print("Coefficient of Determniaiton: " + str(model.score(x_test, y_test)))
 

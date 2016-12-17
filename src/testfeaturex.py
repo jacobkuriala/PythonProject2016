@@ -4,6 +4,7 @@ import numpy as np
 import unittest
 import skimage.io as sio
 import clustermanager
+from configmanager import Configs
 
 
 class TestFeatureExtraction(unittest.TestCase):
@@ -12,8 +13,7 @@ class TestFeatureExtraction(unittest.TestCase):
     """
     def setUp(self):
         testimg = 'ADoorColor_1.png'
-        imagepath = '/home/jacob/PycharmProjects/Chameleon/images/slices/' + \
-                    testimg
+        imagepath = Configs().ProcessingFolderPath + 'slices/' + testimg
         self.testImage = sio.imread(imagepath)
         self.kmeansfortestImage = clustermanager.findimagekmeans(testimg, 5)
         self.test_array = np.asarray([[[1, 1, 1], [1, 1, 1]], [[1, 1, 1],

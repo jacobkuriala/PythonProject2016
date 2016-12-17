@@ -10,7 +10,7 @@ from configmanager import Configs
 
 directory_path = Configs().ProcessingFolderPath
 image_path = directory_path + 'slices/'
-features_fname = directory_path + 'featurespixelcoverage.txt'
+features_fname = directory_path + 'features.txt'
 
 
 def write_features(filename=features_fname):
