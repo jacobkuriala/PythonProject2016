@@ -25,7 +25,7 @@ def writescorestofile():
     :return:
     """
     palettescores = {}
-    palettes_dict = pm.read_palette_colors_file()
+    palettes_dict = pm.artistpalettes_dict
 
     for artistpalettekey, artistpalettevalue in palettes_dict.items():
         kmeanspalette = clustermanager.findimagekmeans(artistpalettekey)
