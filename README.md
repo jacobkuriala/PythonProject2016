@@ -6,6 +6,7 @@ ProcessingFolderPath = r'Data/'
 
 Change this location to the location where your data is stored.
 
+(referring to the contents of the actual folder Data/ will help understand the following:)
 Assumption:
 This folder will contain the file file_palette_RGBmapping_rogues.txt which contains a list of file
 that must be 'ignored' for processing
