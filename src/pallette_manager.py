@@ -28,7 +28,7 @@ def writeLABColorsToFile(palette_dir=palette_dir, filename='LAB_palettes.txt'):
     each line of the text contains the path of the palette followed by
     space seperated rgb values of colors in the palette
     '''
-    filename = proj_imgs_path + r'/' + filename
+    filename = proj_imgs_path + filename
     output_file = open(filename, 'w')
     palette_search_string = palette_dir + '*.png'
     # get each png file from the directory
