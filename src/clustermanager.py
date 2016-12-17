@@ -4,15 +4,15 @@ information for images in the processingfolderpath
 """
 import os
 import os.path
-import scipy
 import pickle
 import random
+import scipy
 import numpy as np
+from numpy import bincount
 from colormath.color_conversions import convert_color
 from colormath.color_objects import LabColor, sRGBColor
 from PIL import Image
 from sklearn.cluster import KMeans, MiniBatchKMeans
-from numpy import bincount
 import pallette_manager as pm
 from configmanager import Configs
 
@@ -29,7 +29,8 @@ processing_folder_path = Configs.ProcessingFolderPath
 meansfileprefix = r'means'
 
 
-def find_clusters_in_dir(training_clusters, original_images_path, calgorithm='KMeans'):
+def find_clusters_in_dir(training_clusters, original_images_path,
+                         calgorithm='KMeans'):
     """
     Checks a directory. If it is a directory, images from the folder 'slices'
     are opened one at a time. Each image is clustered, and its resulting
@@ -73,8 +74,8 @@ def find_clusters_in_dir(training_clusters, original_images_path, calgorithm='KM
 
         # Skip files that are not .png, .jpeg, nor .jpg
         if imagename.find(".png") == -1 and \
-                        imagename.find(".jpeg") == -1 and \
-                        imagename.find(".jpg") == -1 or skipflag:
+           imagename.find(".jpeg") == -1 and \
+           imagename.find(".jpg") == -1 or skipflag:
             continue
 
         print(imagename)
@@ -84,7 +85,7 @@ def find_clusters_in_dir(training_clusters, original_images_path, calgorithm='KM
         # Jacob: get the artist palette count here assume 5 for now
         mean_count = pm.getArtistPaletteCount(imagename)
         if mean_count == 0:
-            # hard code means to 10 in case image does not exist (to prevent abort)
+            # hard code means to 10 in case image doesn't exist(prevents abort)
             mean_count = 10
         centroids, labels = cluster_image(img, mean_count, calgorithm)
         if len(centroids) > 0:
@@ -96,7 +97,8 @@ def find_clusters_in_dir(training_clusters, original_images_path, calgorithm='KM
                 i = 0
                 for lab in centroids:
                     # Jacob commented here
-                    # weightedresult.append([lab[0], lab[1], lab[2], int(weights[i] * 100 / total)])
+                    # weightedresult.append([lab[0], lab[1], lab[2],
+                    #                       int(weights[i] * 100 / total)])
                     weightedresult.append([lab[0], lab[1], lab[2]])
                     i = i + 1
                 cluster_list.append([imagename, weightedresult])
@@ -106,7 +108,8 @@ def find_clusters_in_dir(training_clusters, original_images_path, calgorithm='KM
                 # clusterfile.write(str([imagename, result]) + "\n")
         # except:
         #    print("Problem processing ", imagename)
-    print('Num images in serialized cluster file after processing', len(cluster_list))
+    print('Num images in serialized cluster file after processing',
+          len(cluster_list))
     print('Num images processed', count_images)
     if count_images != len(cluster_list):
         print("ERROR! Not all images processed")
@@ -135,6 +138,7 @@ def cluster_image(image, k_clusters=5, calgorithm='KMeans'):
         lablist = [convert_color(x, LabColor) for x in rgblist]
         lablist = np.array([[x.lab_l, x.lab_a, x.lab_b] for x in lablist])
         return cluster_array(k_clusters, lablist, calgorithm)
+
 
 def cluster_array(clusters, lablist, calgorithm):
     if calgorithm == 'KMeans':
@@ -175,6 +179,7 @@ def deserialize(clusterfilename):
     else:
         return []
 
+
 def serialize(cluster_list, clusterfilename):
     '''
     Uses pickle to convert a parameter into bytes. Writes those bytes to
@@ -210,9 +215,11 @@ def findimagerandommeans(imagename):
     return findmeansfromlist(imagename, random_data)
 
 
-def write_Clustering_Information_to_file(kmeanslist, processingfolderpath, calgorithm):
+def write_Clustering_Information_to_file(kmeanslist, processingfolderpath,
+                                         calgorithm):
     """
-    This function writes the means information in a temporary file in processing_folder_path
+    This function writes the means information in a temporary file in
+    processing_folder_path
     :param kmeanslist:
     :param processingfolderpath:
     :param overwrite:
@@ -221,7 +228,8 @@ def write_Clustering_Information_to_file(kmeanslist, processingfolderpath, calgo
     """
     imagesfolderpath = processingfolderpath + r'slices/'
     find_clusters_in_dir(kmeanslist, imagesfolderpath, calgorithm)
-    serialize(kmeanslist, processingfolderpath + meansfileprefix + '_' + calgorithm)
+    serialize(kmeanslist, processingfolderpath + meansfileprefix + '_' +
+              calgorithm)
 
 
 # checks if file kmeans file exists
@@ -236,7 +244,9 @@ def read_Clustering_information_from_file(calgorithm):
     kmeanslist = []
     kmeansfile = processing_folder_path + meansfileprefix + '_' + calgorithm
     if not os.path.exists(kmeansfile):
-        write_Clustering_Information_to_file(kmeanslist, processing_folder_path, calgorithm)
+        write_Clustering_Information_to_file(kmeanslist,
+                                             processing_folder_path,
+                                             calgorithm)
     return deserialize(kmeansfile)
 
 k_means_data = read_Clustering_information_from_file('KMeans')
@@ -256,5 +266,3 @@ def findmeansfromlist(imagename, meanslist):
     for item in meanslist:
         if item[0] == imagename:
             return np.array(item[1])
-
-
