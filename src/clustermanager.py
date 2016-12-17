@@ -118,7 +118,7 @@ def find_clusters_in_dir(training_clusters, original_images_path,
 
 
 def cluster_image(image, k_clusters=5, calgorithm='KMeans'):
-    '''
+    """
     Clusters an image into k cluster points. Then, converts each
     color point from RGB to LAB color format.
 
@@ -129,7 +129,7 @@ def cluster_image(image, k_clusters=5, calgorithm='KMeans'):
         cluster_list: A list containing elements in the following format:
                         [(name), (array of colors)]
     Replaced vq with sklearn
-    '''
+    """
     arr = scipy.misc.fromimage(image)
     shape = arr.shape
     if len(shape) > 2:
@@ -141,6 +141,9 @@ def cluster_image(image, k_clusters=5, calgorithm='KMeans'):
 
 
 def cluster_array(clusters, lablist, calgorithm):
+    """
+
+    """
     if calgorithm == 'KMeans':
         means_ex = KMeans(n_clusters=clusters)
         means_ex.fit_predict(lablist)
@@ -181,13 +184,13 @@ def deserialize(clusterfilename):
 
 
 def serialize(cluster_list, clusterfilename):
-    '''
+    """
     Uses pickle to convert a parameter into bytes. Writes those bytes to
     the file: clusterlistbytes.
 
     Args:
         cluster_list: A list object
-    '''
+    """
     cluster_bytes = open(clusterfilename, "wb")
     # pickle.dump(cluster_list, cluster_bytes)
     pickle.dump(cluster_list, cluster_bytes, protocol=2)
@@ -212,6 +215,8 @@ def findimageminibatchmeans(imagename):
 
 
 def findimagerandommeans(imagename):
+    """
+    """
     return findmeansfromlist(imagename, random_data)
 
 
