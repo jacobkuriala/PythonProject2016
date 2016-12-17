@@ -1,36 +1,73 @@
+"""These functions generally will take 1-d arrays and calculate a measure.
+It also provides a formatter function to format incorrect formatted
+palettes"""
 import numpy as np
 
-#These functions generally will take 1-d arrays and calculate a measure
 
+def calculate_mean(num_list):
+    """
+    Calculates the mean in a list
 
-def calculate_mean(l):
+    Args:
+    num_list: iterable of numbers
+
+    Returns:
+    mean of numbers in list
     """
 
-    :param l: iterable of numbers
-    :return: mean of numbers
-    """
-
-    if len(l)>0:
-        return float(sum(l)/len(l))
+    if len(num_list) > 0:
+        return float(sum(num_list) / len(num_list))
     else:
         return 0.0
 
 
-def calculate_euclid_dist(a, b):
+def calculate_euclid_dist(vector_a, vector_b):
     """
-    Calculate the euclidean distance
-    between two vectors
+    Calculate the euclidean distance between vector_a and vector_a
+
+    Args:
+    vector_a: np array of floats
+    vector_b: np array of floats
+
+    Returns:
+    Float with the values of the euclidean distance between the two vectors
+    in an np array.
     """
-    return np.linalg.norm(a - b)
+    return np.linalg.norm(vector_a - vector_b)
 
 
-def calculate_upc(p, c, k_means_palette):
+def calculate_upc(designer_palette_pixel, generated_color, generated_palette):
+    """
+    Calculate the upc between vector_a and vector_a
+
+    Args:
+    designer_palette_pixel: pixel in designer generated palette
+    generated_color: color of algorithmically generated palette
+    generated_palette: algorithmically generated palette
+
+    Returns:
+    Float with the values of the euclidean distance between the two vectors
+    in an np array.
+    """
     error = 0.0
-    for j in k_means_palette:
-        error += (calculate_euclid_dist(p, c) / calculate_euclid_dist(p, j))**2
+    for pixel in generated_palette:
+        error += (calculate_euclid_dist(designer_palette_pixel,
+                                        generated_color) /
+                  calculate_euclid_dist(designer_palette_pixel, pixel))**2
     return 1 / error
 
+
 def calculate_distances(palette):
+    """
+    Iterates over a palette calculating the euclidean distance between each
+    color.
+
+    Args:
+    palette: palette in LAB space
+
+    Returns:
+    List of distances between colors in a palette
+    """
     distances = []
     rows = palette.shape[0]
     if rows != 1:
@@ -43,6 +80,16 @@ def calculate_distances(palette):
 
     return distances
 
-def formatter(img):
-    [list(pixel) for row in img for pixel in row]
+
+def formatter(palette):
+    """
+    Formats palette to correct format
+
+    Args:
+    palette: palette of colors in RGB or LAB space
+
+    Returns:
+    a list of lists of RGB or LAB values of the colors in a palette
+    """
+    [list(pixel) for row in palette for pixel in row]
     return
