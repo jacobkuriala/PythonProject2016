@@ -21,4 +21,4 @@ class Configs(object):
     #   r'/media/jacob/Elements/MyStuff/Chama/DESIGNSEEDS/DESIGNSEEDS/'
     # ProcessingFolderPath = \
     #   r'/home/er/Downloads/ProjectPyTest/DESIGNSEEDS/DESIGNSEEDS/'
-    ProcessingFolderPath = r'Data/sample_data/'
+    ProcessingFolderPath = r'Data/'
