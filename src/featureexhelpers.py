@@ -91,5 +91,4 @@ def formatter(palette):
     Returns:
     a list of lists of RGB or LAB values of the colors in a palette
     """
-    [list(pixel) for row in palette for pixel in row]
-    return
+    return [list(pixel) for row in palette for pixel in row]
