@@ -79,16 +79,3 @@ def calculate_distances(palette):
         distances.append(0.0)
 
     return distances
-
-
-def formatter(palette):
-    """
-    Formats palette to correct format
-
-    Args:
-    palette: palette of colors in RGB or LAB space
-
-    Returns:
-    a list of lists of RGB or LAB values of the colors in a palette
-    """
-    return [list(pixel) for row in palette for pixel in row]
