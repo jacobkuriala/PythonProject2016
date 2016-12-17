@@ -54,7 +54,7 @@ def train_model():
     return lasso_model, X_test, y_test
 
 
-def test_model():
+def test_model(showplot = False):
     """
     Tests model by using 40 percent of samples data. Evaluates model using
     coefficient of Determination. It later creates a plot graph that depicts
@@ -66,16 +66,17 @@ def test_model():
     print("Coefficient of Determination: " + str(model.score(x_test, y_test)))
 
     # Create Graph
-    figure, axis = plt.subplots()
-    axis.scatter(y_test, predicted_scores)
-    axis.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], 'k--',
-              lw=4)
-    axis.tick_params(axis='x', labelsize=10)
-    axis.tick_params(axis='y', labelsize=10)
-    axis.set_xlabel('Actual', fontsize=18)
-    axis.set_ylabel('Predicted', fontsize=18)
-    axis.set_title('All features', fontsize=25)
-    plt.show()
+    if showplot:
+        figure, axis = plt.subplots()
+        axis.scatter(y_test, predicted_scores)
+        axis.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], 'k--',
+                  lw=4)
+        axis.tick_params(axis='x', labelsize=10)
+        axis.tick_params(axis='y', labelsize=10)
+        axis.set_xlabel('Actual', fontsize=18)
+        axis.set_ylabel('Predicted', fontsize=18)
+        axis.set_title('All features', fontsize=25)
+        plt.show()
 
 
 def production_model(original_palette):
@@ -94,7 +95,7 @@ def production_model(original_palette):
                               [63.0, 72.0, 204.0]]], dtype=np.uint8)
     bad_palette2 = np.array([[[225.0, 225.0, 0.0], [0.0, 255.0, 255.0],
                               [255.0, 0.0, 255.0], [0.0, 255.0, 64.0],
-                              [255.0, 0.0]]], dtype=np.uint8)
+                              [255.0, 0.0, 0.0]]], dtype=np.uint8)
     good_palette = np.array([[[221.0, 135.0, 210.0], [135.0, 169.0, 221.0],
                               [135.0, 221.0, 156.0], [218.0, 221.0, 135.0],
                               [49.0, 59.0, 79.0]]], dtype=np.uint8)
