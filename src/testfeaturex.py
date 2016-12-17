@@ -2,7 +2,7 @@ import featurex as fx
 import featureexhelpers as fxh
 import numpy as np
 import unittest
-import skimage.io as sio
+import pallette_manager as pm
 import clustermanager
 from configmanager import Configs
 
@@ -14,7 +14,7 @@ class TestFeatureExtraction(unittest.TestCase):
     def setUp(self):
         testimg = 'ADoorHues_10.png'
         imagepath = Configs().ProcessingFolderPath + 'slices/' + testimg
-        self.testImage = sio.imread(imagepath)[0]
+        self.testImage = np.array(pm.getArtistPalette(testimg), dtype=np.uint8)
         self.kmeansfortestImage = clustermanager.findimagekmeans(testimg)
         self.test_array = np.asarray([[[1, 1, 1], [1, 1, 1]], [[1, 1, 1],
                                                                [1, 1, 1]]])
@@ -22,7 +22,7 @@ class TestFeatureExtraction(unittest.TestCase):
                                       [13, 14, 15], [19, 20, 21]])
 
     def test_RGB_mean(self):
-        #testing 2-d image with all ones
+        #testing imagepath2-d image with all ones
         self.assertEqual(fx.extract_RGBmean(self.test_array), (1.0, 1.0, 1.0))
 
     def test_Lcov(self):
@@ -59,7 +59,8 @@ class TestFeatureExtraction(unittest.TestCase):
     def test_extract_soft_recoloring_error_with_image(self):
         print('run test_extract_soft_recoloring_error_images')
         print(fx.extract_soft_recoloring_error(self.testImage,
-                                               self.kmeansfortestImage))
+                                               self.kmeansfortestImage,
+                                               False))
 
 if __name__ == '__main__':
     unittest.main()
