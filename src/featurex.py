@@ -17,8 +17,9 @@ def extract_RGBmean(sioimage):
     Rcolors = sioimage[:, :, 0].flatten()
     Gcolors = sioimage[:, :, 1].flatten()
     Bcolors = sioimage[:, :, 2].flatten()
-    return fxh.calculate_mean(Rcolors), fxh.calculate_mean(Gcolors),
-    fxh.calculate_mean(Bcolors)
+    RGBvalues = (fxh.calculate_mean(Rcolors), fxh.calculate_mean(Gcolors),
+                 fxh.calculate_mean(Bcolors))
+    return RGBvalues[0], RGBvalues[1], RGBvalues[2]
 
 """"""""""""""""""""""""
 "    Pixel coverage    "
@@ -47,18 +48,18 @@ def extract_Lcov(designer_palette, generated_palette):
     generated_palette_lightness = generated_palette[:, 0]
 
     range_i = np.amax(designer_palette_lightness) - \
-    np.amin(designer_palette_lightness)
+        np.amin(designer_palette_lightness)
     range_c = np.amax(generated_palette_lightness) - \
-    np.amin(generated_palette_lightness)
+        np.amin(generated_palette_lightness)
 
     return range_c / range_i
 
 
 def extract_Scov(designer_palette, generated_palette):
     """
-    Extract the saturation coverage. Saturation coverage is the quotient between
-    range_c and range_i. The colors of both palettes are converted into HSV in
-    order to extract saturation from each color
+    Extract the saturation coverage. Saturation coverage is the quotient
+    between range_c and range_i. The colors of both palettes are
+    converted into HSV in order to extract saturation from each color
     Range_c is the difference between the maximum saturation and the minimum
     saturation of colors in a algorithmically generated palette and
     Range_i is the difference between the maximum saturation and the minimum
@@ -81,9 +82,9 @@ def extract_Scov(designer_palette, generated_palette):
     generated_palette_saturation = hsv_generated_palette[:, :, 1].flatten()
 
     range_i = np.amax(designer_palette_saturation) - \
-              np.amin(designer_palette_saturation)
+        np.amin(designer_palette_saturation)
     range_c = np.amax(generated_palette_saturation) - \
-              np.amin(generated_palette_saturation)
+        np.amin(generated_palette_saturation)
 
     return range_c / range_i
 
@@ -95,8 +96,8 @@ def extract_soft_recoloring_error(designer_palette, generated_palette, equal):
     error, we use the sum of the product between the errors squared and the upc
     squared.
     Error is the distance between a pixel in the designer palette and a pixel
-    the algorithmically generated palette.
-    Upc is 1 divided by the sum of the quotients of the distance between designer
+    the algorithmically generated palette. Upc is 1 divided by the sum of the
+    quotients of the distance between designer
     created palette pixel and a generated color pixel and the error
     between designer created palette pixel and all the pixels in the generated
     palette.

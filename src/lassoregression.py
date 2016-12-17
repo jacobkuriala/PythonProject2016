@@ -62,7 +62,7 @@ def test_model():
     """
     model, x_test, y_test = train_model()
     predicted_scores = model.predict(x_test)
-    print("Predicted Scores: " + predicted_scores)
+    print("Predicted Scores: " + str(predicted_scores))
     print("Coefficient of Determination: " + str(model.score(x_test, y_test)))
 
     # Create Graph
@@ -70,8 +70,8 @@ def test_model():
     axis.scatter(y_test, predicted_scores)
     axis.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], 'k--',
               lw=4)
-    axis.tick_params(axisis='x', labelsize=10)
-    axis.tick_params(axisis='y', labelsize=10)
+    axis.tick_params(axis='x', labelsize=10)
+    axis.tick_params(axis='y', labelsize=10)
     axis.set_xlabel('Actual', fontsize=18)
     axis.set_ylabel('Predicted', fontsize=18)
     axis.set_title('All features', fontsize=25)

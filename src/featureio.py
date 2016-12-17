@@ -30,7 +30,7 @@ def write_features(filename=features_fname):
                                                      cm.findimagekmeans(fname))
         feature_file.write('{}'.format(kmeans_palette_features))
 
-        feature_file.write('\n' + fname + '_minibmeans:')
+        feature_file.write('\n' + fname + '_minibatchmeans:')
         minibmeans_palette_features = feature_extraction(palette_pixels,
                                                          cm.findimageminibatchmeans(fname))
 

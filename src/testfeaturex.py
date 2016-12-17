@@ -12,10 +12,10 @@ class TestFeatureExtraction(unittest.TestCase):
     This class is used to test all the functions in featureex.py
     """
     def setUp(self):
-        testimg = 'ADoorColor_1.png'
+        testimg = 'ADoorHues_10.png'
         imagepath = Configs().ProcessingFolderPath + 'slices/' + testimg
-        self.testImage = sio.imread(imagepath)
-        self.kmeansfortestImage = clustermanager.findimagekmeans(testimg, 5)
+        self.testImage = sio.imread(imagepath)[0]
+        self.kmeansfortestImage = clustermanager.findimagekmeans(testimg)
         self.test_array = np.asarray([[[1, 1, 1], [1, 1, 1]], [[1, 1, 1],
                                                                [1, 1, 1]]])
         self.test_palette = np.array([[1, 2, 3], [4, 5, 6], [8, 9, 10],
@@ -36,7 +36,8 @@ class TestFeatureExtraction(unittest.TestCase):
 
     def test_min_color_dist(self):
         self.assertEqual(fx.extract_min_color_dist(self.test_palette),
-                         fxh.calculate_euclid_dist(np.array(self.test_palette[0]),
+                         fxh.calculate_euclid_dist(np.array(
+                             self.test_palette[0]),
                                                    np.array(self.test_palette[1])))
 
     def test_max_color_dist(self):
@@ -46,7 +47,6 @@ class TestFeatureExtraction(unittest.TestCase):
 
     def test_mean_color_dist(self):
         pass
-
 
     def test_extract_Lcov_with_image(self):
         print('run test_extract_Lcov_with_images')
@@ -60,3 +60,6 @@ class TestFeatureExtraction(unittest.TestCase):
         print('run test_extract_soft_recoloring_error_images')
         print(fx.extract_soft_recoloring_error(self.testImage,
                                                self.kmeansfortestImage))
+
+if __name__ == '__main__':
+    unittest.main()
