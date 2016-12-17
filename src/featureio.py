@@ -6,6 +6,7 @@ import clustermanager as cm
 import featurex as fx
 import pallette_manager as pm
 from configmanager import Configs
+import os
 
 
 directory_path = Configs().ProcessingFolderPath
@@ -59,6 +60,8 @@ def read_features(filename=features_fname):
     A dictionary of image names as keys and list of features as values
     """
 
+    if not os.path.exists(filename):
+        write_features()
     features_dict = defaultdict(list)
     float_pattern = r'-*[0-9]+\.[0-9]+'
     with open(filename) as file:

@@ -76,7 +76,7 @@ def read_palette_colors_file(palettes_filename='LAB_palettes.txt',
     float_pattern = '-*[0-9]+\.[0-9]+'
 
     if not os.path.exists(palettes_filepath):
-        writeLABColorsToFile(palettes_filename)
+        writeLABColorsToFile(filename=palettes_filename)
 
     roguesfile = Configs.ProcessingFolderPath + 'file_palette_RGBmapping_rogues.txt'
     roguefilelist = [line.strip() for line in open(roguesfile)]
