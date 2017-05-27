@@ -1,6 +1,8 @@
 # PythonProject2016
 Project done for Python FSU CIS 5930 fall 2016
 
+Instructions for test run:
+
 configurationmanager.py contains the global property
 ProcessingFolderPath = r'Data/'
 
